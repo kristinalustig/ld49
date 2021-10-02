@@ -11,7 +11,8 @@ function M.new(id, letterMap, name, desc, img, cost)
       desc = desc,
       letterMap = letterMap,
       img = img,
-      cost = cost
+      cost = cost,
+      quantity = 1 --currently available to use in a brew
       
       }, M)
   

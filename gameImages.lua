@@ -8,6 +8,8 @@ function M.initialize()
   door = g.newImage("assets/door.png")
   dialogBox = g.newImage("assets/dialogBox.png")
   brewBox = g.newImage("assets/brewBox.png")
+  openBook = g.newImage("assets/openBook.png")
+  congrats = g.newImage("assets/congrats.png")
   
 end
 

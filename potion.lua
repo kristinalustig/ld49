@@ -11,7 +11,10 @@ function M.new(id, name, ingredients, sell)
       discovered = false,
       name = name,
       ingredients = ingredients,
-      sell = sell
+      sell = sell,
+      quantity = 0,
+      forSale = false,
+      letterMap = nil
       
       }, M)
   
