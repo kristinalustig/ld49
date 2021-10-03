@@ -6,7 +6,7 @@ function M.new(id, letterMap, name, desc, img, cost)
   local self = setmetatable({
       
       id = id,
-      discovered = true,
+      discovered = false,
       name = name,
       desc = desc,
       letterMap = letterMap,

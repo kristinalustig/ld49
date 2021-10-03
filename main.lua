@@ -37,7 +37,7 @@ function love.load()
   forSale = {potions[1]}
   onTable = {potions[1], potions[1]}
   minPage = 0
-  maxPage = 2
+  maxPage = 34
   counter = 1
 
 end
@@ -191,6 +191,7 @@ function love.keyreleased(k)
     return
   elseif k == 'left' and state.isBookOpen == true then
     state.currPage = math.max(state.currPage - 2, minPage)
+    return
   end
   
 
@@ -202,8 +203,6 @@ function love.keyreleased(k)
       trySellPotion(k)
     elseif state.isTalking then
       conversation(k)
-    elseif state.isBookOpen then
-      navigateBook(k)
     elseif state.isInspectingIngredients then
       setInspectI(k)
     elseif state.isInspectingPotions then
@@ -323,7 +322,7 @@ function tryCompleteBrew()
   table.sort(finalBrew)
   
   for i = 1, table.getn(potions) do
-    if ingredientsMatch(potions[i].ingredients, finalBrew) then
+    if ingredientsMatch(potions[i].ingreds, finalBrew) then
       if potions[i].discovered == false then
         state.congratsPopover = potions[i]
         potions[i].discovered = true
@@ -405,24 +404,72 @@ end
 function populateBook(page)
   
   --ingredients pages 0 - 2
-  local start = (page * 6) + 1
-  local opp = 0
-  g.setFont(regFont)
-  g.printf("INGREDIENTS", 60, 36, 300)
-  g.setFont(regSmFont)
-  for i=start, table.getn(ingredients)-((2-page)*6) do
-    ing = ingredients[i]
-    if ing.id - 6 >= start then
-        opp = 350
+  if page <= 2 then
+    local start = math.max(page * 6, 1)
+    local opp = 0
+    g.setFont(regFont)
+    g.printf("INGREDIENTS", 60, 36, 320)
+    g.setFont(regSmFont)
+    for i=start, start + 12 do
+      ing = ingredients[i]
+      if ing.id - 6 >= start then
+          opp = 350
+        end
+        local modif = i % 12
+          if modif == 0 then
+            modif = 12
+          end
+      if ing.discovered == true then
+        x = 60 + opp
+        y = 70 * modif + 10 - (opp + math.floor(opp*.1))
+        g.draw(ing.img, x, y)
+        g.printf(ing.name..': '..ing.desc, x + 56, y + 10, 290)
+      else
+        g.printf('#'..ing.id..' is undiscovered', 56 + opp, 70 * modif + 20 - (opp + math.floor(opp*.1)), 300)
       end
-    if ing.discovered == true then
-      x = 60 + opp
-      y = 70 * (i % 12) + 10 - (opp + math.floor(opp/3))
-      g.draw(ing.img, x, y)
-      g.printf(ing.name..': '..ing.desc, x + 56, y + 10, 290)
-    else
-      g.printf('#'..ing.id..' is undiscovered', 56 + opp, 70 * (i%12) +20 - (opp + math.floor(opp/3)), 300)
     end
+    
+  --potions pages 4 - ??
+  elseif page <= 40 then
+    local pstart = (page-4)/2*7
+    local popp = 0
+    local counter = 0
+    g.setFont(regFont)
+    g.printf("POTIONS #"..math.max(pstart,1).." - " .. math.min(pstart+7, 107), 60, 36, 300)
+    g.setFont(regSmFont)
+    for i=math.max(pstart,1), pstart + 8 do
+      if page < 34 then
+        p = potions[i]
+      else
+        if counter == 3 then return end
+        p = potions[105 + counter]
+        counter = counter + 1
+      end
+        if p.id - 3 > pstart then
+          popp = 350
+        else
+          popp = 0
+        end
+        local modif = i % 7
+          if modif == 0 then
+            modif = 7
+          end
+        if p.discovered == true then
+          x = 60 + popp
+          y = 124 * (modif) - (popp ) - math.floor(popp*.25) - 30
+            g.draw(potionSheet, p.img, x, y)
+            g.printf(p.name..': '..p.desc, x + 56, y, 290)
+            g.printf("*"..ingredients[p.ingreds[1]].name .. " + " .. ingredients[p.ingreds[2]].name.."*", x-6, y+74, 360)
+            g.printf("Sell for: "..p.sell.."   Quantity: "..p.quantity, x+150, y+100, 300)
+            g.printf("-------------------------------------------------", x+20, y+110, 300)
+        else
+            g.printf('#'..p.id..' is undiscovered', 60 + popp, 124 * (modif) - (popp ) - math.floor(popp*.25) - 30, 300)
+        end
+      
+    end
+    
+      
+
   end
   
 end
