@@ -10,6 +10,10 @@ function M.initialize()
   brewBox = g.newImage("assets/brewBox.png")
   openBook = g.newImage("assets/openBook.png")
   congrats = g.newImage("assets/congrats.png")
+  uhoh = g.newImage("assets/uhoh.png")
+  brewSign = g.newImage("assets/brewSign.png")
+  inspectSign = g.newImage("assets/inspect.png")
+  sellSign = g.newImage("assets/sell.png")
   
 end
 

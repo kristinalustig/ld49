@@ -6,14 +6,14 @@ M = {}
 
 function M.initialize()
   
-  --ingredients: function M.new(id, letterMap, name, img, cost)
+  --ingredients: function M.new(id, letterMap, name, desc (max 160 char), img, cost)
   ingredients = {
     
     i.new(
       1, --id
       'a', --key
       'Irradiated grass', --name
-      '', --desc
+      'Non-irradiated grass might work better, but this is what\'s available, so...', --desc
       g.newImage('assets/grass.png'), --img
       1 --cost
     ),
@@ -234,53 +234,14 @@ function M.initialize()
     c.new(
       1, --id
       'Gertrude', --name,
-      0, --wants (potion id)
-      0, --gives (hint id)
-      0, --gives (ingredient id)
-      g.newImage('assets/hair.png'), --img
+      0, --want (potion id)
+      0, --give (hint id)
+      0, --give (ingredient id)
+      g.newImage('assets/c.png'), --img
       'Good day!', --greeting text
       'I would truly love some BLAH.', --want text
       'Good show old chap.', --success text
       'Maybe next time.' --failure text
-    ),
-    
-    c.new(
-      1, --id
-      '', --name,
-      0, --wants (potion id)
-      0, --gives (hint id)
-      0, --gives (ingredient id)
-      g.newImage('assets/hair.png'), --img
-      '', --greeting text
-      '', --want text
-      '', --success text
-      '' --failure text
-    ),
-    
-    c.new(
-      1, --id
-      '', --name,
-      0, --wants (potion id)
-      0, --gives (hint id)
-      0, --gives (ingredient id)
-      g.newImage('assets/hair.png'), --img
-      '', --greeting text
-      '', --want text
-      '', --success text
-      '' --failure text
-    ),
-    
-    c.new(
-      1, --id
-      '', --name,
-      0, --wants (potion id)
-      0, --gives (hint id)
-      0, --gives (ingredient id)
-      g.newImage('assets/hair.png'), --img
-      '', --greeting text
-      '', --want text
-      '', --success text
-      '' --failure text
     )
   
   }

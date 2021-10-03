@@ -8,15 +8,16 @@ function M.new(id, name, wants, givesHints, givesIngredients, img, greeting, wan
       id = id,
       visited = false,
       name = name,
-      wants = wants,
-      givesHints = givesHints,
-      givesIngredients = givesIngredients,
-      img = img,
-      greeting = greeting,
       want = want,
-      success = success,
-      failure = failure
-      
+      givesHint = givesHint,
+      givesIngredient = givesIngredient,
+      img = img,
+      content = {
+      greeting,
+      want,
+      success,
+      failure
+    }
       }, M)
   
   return self

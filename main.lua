@@ -11,31 +11,45 @@ function love.load()
   GI.initialize()
   print(ingredients[1].name)
   
-  keyFont = g.newImageFont("assets/keycaps.png", 'abcdefghijklmnopqrstuvwxyz./1234567890') 
+  keyFont = g.newImageFont("assets/keycaps.png", 'abcdefghijklmnopqrstuvwxyz./1234567890')
+  regFont = g.newImageFont("assets/regular.png", 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890!?.,()\'":;@+-*/%#^= ')
+  regSmFont = g.newImageFont("assets/regularSm.png", 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890!?.,()\'":;@+-*/%#^= ')
   potionSheet = g.newImage("assets/potiongrid.png")
   
   --important vars that manage game state which isn't janky at all
   state = {
     isBrewing = false,
-    customerPresent = false,
+    customerPresent = true,
     isSelling = false,
     isTalking = false,
     isBookOpen = false,
     isInspectingIngredients = false,
     isInspectingPotions = false,
     congratsPopover = nil,
-    inspecting = nil
+    inspecting = nil,
+    currentCustomer = nil,
+    convoState = nil,
+    currPage = 0
   }
   
   barrelContents = 0
   brewContents = {}
   forSale = {potions[1]}
   onTable = {potions[1], potions[1]}
+  minPage = 0
+  maxPage = 2
 
 end
 
-function love.update()
-
+function love.update(dt)
+  for i=1, table.getn(customers)+1 do
+    if dt % i == 0 and customers[i].visited == false then
+      state.currentCustomer = customers[i]
+      state.customerPresent = true
+      return
+    end
+  end
+  
 end
 
 function love.draw()
@@ -55,8 +69,6 @@ function love.draw()
       else
         g.draw(ingredients[i].img, x, y)
       end
-      
-      
       
       if state.isBrewing or state.isInspectingIngredients then
         g.printf(ingredients[i].letterMap, x, y + 35, 30)
@@ -88,7 +100,13 @@ function love.draw()
   if state.isInspectingIngredients then
     g.draw(brewBox, 420, 370)
     if state.inspecting then
-      g.printf(state.inspecting.letterMap, 430, 390, 30)
+      g.setFont(regFont)
+      g.draw(state.inspecting.img, 430, 390)
+      g.printf(state.inspecting.name, 488, 390, 300)
+      g.setFont(regSmFont)
+      g.printf(state.inspecting.desc, 430, 480, 360)
+      g.printf("COST: "..state.inspecting.cost, 430, 550, 100)
+      g.setFont(keyFont)
     end
   end
   
@@ -101,7 +119,11 @@ function love.draw()
   --if a customer is here then open the door
   if state.customerPresent then
     g.draw(customer, 500, 116)
-    g.draw(customerSign, 520, 150)
+    if not state.isTalking then
+      g.draw(customerSign, 510, 230)
+      g.printf('3', 515, 235, 30)
+    end
+    
   else
     g.draw(door, 528, 69)
   end
@@ -116,8 +138,16 @@ function love.draw()
     end
   elseif state.isBookOpen then
     g.draw(openBook)
+    populateBook(state.currPage)
   elseif state.congratsPopover then
     g.draw(congrats)
+  elseif state.isTalking then
+    g.draw(dialogBox, 10, 340)
+    g.draw(state.currentCustomer.img, 26, 352)
+    g.setFont(regFont)
+    g.printf(state.currentCustomer.name, 28, 540, 200)
+    g.printf(state.convoState, 200, 380, 400)
+    g.setFont(keyFont)
   end
 
 end
@@ -125,6 +155,13 @@ end
 
 --pretty much everything happens here!
 function love.keyreleased(k)
+  
+  if k == 'right' and state.isBookOpen == true then
+    state.currPage = math.min(state.currPage + 2, maxPage)
+    return
+  elseif k == 'left' and state.isBookOpen == true then
+    state.currPage = math.max(state.currPage - 2, minPage)
+  end
   
 
   if not checkExit(k) then
@@ -233,6 +270,7 @@ function exitStates()
   state.isInspectingPotions = false
   state.congratsPopover = nil
   state.inspecting = nil
+  state.convoState = 0
   brewContents = {}
 end
 
@@ -250,16 +288,16 @@ function tryCompleteBrew()
   
   for i = 1, table.getn(potions) do
     if ingredientsMatch(potions[i].ingredients, finalBrew) then
-      print("yes")
       if potions[i].discovered == false then
         state.congratsPopover = potions[i]
         potions[i].discovered = true
       end
-      
       potions[i].quantity = potions[i].quantity + 1
       return
     end
   end
+  
+  barrelContents = barrelContents + 1
   
 end
 
@@ -327,3 +365,29 @@ function removeTablePotion(p)
   end
   
 end
+
+function populateBook(page)
+  
+  --ingredients pages 0 - 2
+  local start = (page * 6) + 1
+  local opp = 0
+  g.setFont(regFont)
+  g.printf("INGREDIENTS", 60, 36, 300)
+  g.setFont(regSmFont)
+  for i=start, table.getn(ingredients)-((2-page)*6) do
+    ing = ingredients[i]
+    if ing.id - 6 >= start then
+        opp = 350
+      end
+    if ing.discovered == true then
+      x = 60 + opp
+      y = 70 * (i % 12) + 10 - (opp + math.floor(opp/3))
+      g.draw(ing.img, x, y)
+      g.printf(ing.name..': '..ing.desc, x + 56, y + 10, 290)
+    else
+      g.printf('#'..ing.id..' is undiscovered', 56 + opp, 70 * (i%12) +20 - (opp + math.floor(opp/3)), 300)
+    end
+  end
+  
+end
+
