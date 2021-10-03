@@ -110,6 +110,7 @@ function love.draw()
       g.setFont(regSmFont)
       g.printf(state.inspecting.desc, 430, 480, 360)
       g.printf("COST: "..state.inspecting.cost, 430, 550, 100)
+      g.printf("QNTY: "..state.inspecting.quantity, 530, 550, 100)
       g.setFont(keyFont)
     end
   end
@@ -117,17 +118,16 @@ function love.draw()
   --show the potions that are for sale
   for i=1, table.getn(forSale) do
     g.draw(potionSheet, forSale[i].img, 670, 30)
+    if state.isSelling then
+      g.printf('1', 690, 50, 30)
+    end
+    
   end
   
   
   --if a customer is here then open the door
   if state.customerPresent then
     g.draw(customer, 500, 116)
-    if not state.isTalking then
-      g.draw(customerSign, 510, 230)
-      g.printf('3', 515, 235, 30)
-    end
-    
   else
     g.draw(door, 528, 69)
   end
@@ -162,10 +162,22 @@ function love.draw()
       g.printf("for no", 410, 544, 100)
     end
     g.setFont(keyFont)
-  else
+  elseif not (state.isInspectingPotions or state.isInspectingIngredients or state.isSelling) then
     g.draw(brewSign, 140, 500)
     g.setFont(keyFont)
     g.printf('1', 258, 532, 30)
+    g.draw(inspectSign, 50, 290)
+    g.printf('4', 210, 295, 30)
+    g.printf('5', 280, 295, 30)
+    g.draw(sellSign, 534, 0)
+    g.printf('2', 765, 6, 30)
+    g.draw(bookSign, 650, 500)
+    g.printf('6', 732, 520, 30)
+    if state.customerPresent then
+      g.draw(customerSign, 510, 230)
+      g.printf('3', 515, 235, 30)
+    end
+    
   end
 
 end

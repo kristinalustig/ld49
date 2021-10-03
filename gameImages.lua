@@ -14,6 +14,7 @@ function M.initialize()
   brewSign = g.newImage("assets/brewSign.png")
   inspectSign = g.newImage("assets/inspect.png")
   sellSign = g.newImage("assets/sell.png")
+  bookSign = g.newImage("assets/bookSign.png")
   
 end
 
