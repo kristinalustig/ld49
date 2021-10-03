@@ -19,7 +19,7 @@ function love.load()
   --important vars that manage game state which isn't janky at all
   state = {
     isBrewing = false,
-    customerPresent = true,
+    customerPresent = false,
     isSelling = false,
     isTalking = false,
     isBookOpen = false,
@@ -28,7 +28,7 @@ function love.load()
     congratsPopover = nil,
     inspecting = nil,
     currentCustomer = nil,
-    convoState = nil,
+    convoState = 1,
     currPage = 0
   }
   
@@ -38,15 +38,19 @@ function love.load()
   onTable = {potions[1], potions[1]}
   minPage = 0
   maxPage = 2
+  counter = 1
 
 end
 
 function love.update(dt)
-  for i=1, table.getn(customers)+1 do
-    if dt % i == 0 and customers[i].visited == false then
-      state.currentCustomer = customers[i]
-      state.customerPresent = true
-      return
+  if state.currentCustomer == nil then
+    for i=1, table.getn(customers)+2 do
+      if (counter % i == 0 and customers[i].visited == false) then
+        state.customerPresent = true
+        state.currentCustomer = customers[i]
+        counter = counter + 1
+        return
+      end
     end
   end
   
@@ -146,8 +150,22 @@ function love.draw()
     g.draw(state.currentCustomer.img, 26, 352)
     g.setFont(regFont)
     g.printf(state.currentCustomer.name, 28, 540, 200)
-    g.printf(state.convoState, 200, 380, 400)
+    g.printf(state.currentCustomer.content[state.convoState], 200, 380, 400)
+    if state.convoState == 2 then
+      g.setFont(keyFont)
+      g.printf('y', 200, 550, 30)
+      g.setFont(regFont)
+      g.printf("for yes", 230, 544, 120)
+      g.setFont(keyFont)
+      g.printf('n', 380, 550, 30)
+      g.setFont(regFont)
+      g.printf("for no", 410, 544, 100)
+    end
     g.setFont(keyFont)
+  else
+    g.draw(brewSign, 140, 500)
+    g.setFont(keyFont)
+    g.printf('1', 258, 532, 30)
   end
 
 end
@@ -232,10 +250,16 @@ end
 --talking to a customer
 function conversation(k)
   
-end
-
---reading the logbook
-function navigateBook(k)
+  if state.convoState == 1 and k == 'right' then
+    state.convoState = state.convoState + 1
+  elseif state.convoState == 2 then
+    if k == 'y' then
+      
+    elseif k == 'n' then
+      
+    end
+  end
+  
   
 end
 
@@ -270,7 +294,7 @@ function exitStates()
   state.isInspectingPotions = false
   state.congratsPopover = nil
   state.inspecting = nil
-  state.convoState = 0
+  state.convoState = 1
   brewContents = {}
 end
 
