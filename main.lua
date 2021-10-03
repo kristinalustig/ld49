@@ -51,11 +51,13 @@ function love.load()
   counter = 1
   lastTalked = 0
   errorMessage = nil
+  intro = 1
+  gameOver = false
 
 end
 
 function love.update(dt)
-  if state.currentCustomer == nil and math.abs(lastTalked - counter) >= 200 then
+  if state.currentCustomer == nil and math.abs(lastTalked - counter) >= 400 then
     for i=1, table.getn(customers) do
       if (counter % (i*math.random(150)) == 0 and customers[i].visited == false) then
         state.customerPresent = true
@@ -73,7 +75,40 @@ end
 
 function love.draw()
   
+  if intro <= 4 then
+    g.draw(titleCard)
+    if intro > 1 then
+      g.setColor(1,1,1,.75)
+      g.rectangle('fill',0,0,800,600)
+      g.reset()
+      g.setFont(regFont)
+      if intro == 2 then
+        g.printf(introPage2, 100, 100, 600, 'center')
+      elseif intro == 3 then
+        g.printf(introPage3, 100, 100, 600, 'center')
+      elseif intro == 4 then
+        g.printf(introPage4, 100, 100, 600, 'center')
+      end
+    end
+    
+ elseif gameOver then
+   g.draw(titleCard)
+   g.setColor(1,1,1,.75)
+    g.rectangle('fill',0,0,800,600)
+    g.reset()
+    g.setFont(regFont)
+    g.printf(gameOverText, 100, 100, 600, 'center')
+  
+  else
+  
   g.draw(background)
+  
+  
+  g.setColor(.9,.9,.9,.75)
+  g.rectangle('fill',436,200,60,30)
+  g.reset()
+  g.setFont(regFont)
+  g.printf(barrelContents.."/10", 440, 200, 60)
   
   --show the ingredients that are discovered - currently testing has them all discovered
   g.setFont(keyFont)
@@ -252,7 +287,7 @@ function love.draw()
     g.setFont(regFont)
     g.printf(errorMessage, 20, 348, 600)
   end
-  
+  end
 
 end
 
@@ -261,6 +296,11 @@ end
 function love.keyreleased(k)
   
   errorMessage = nil
+  
+  if intro <= 4 then
+    intro = intro + 1
+  end
+  
   
   if k == 'right' and state.isBookOpen == true then
     state.currPage = math.min(state.currPage + 2, maxPage)
@@ -446,6 +486,10 @@ function tryCompleteBrew()
   end
   
   barrelContents = barrelContents + 1
+  if barrelContents >= 10 then
+    gameOver = true
+  end
+  
   state.congratsPopover = {'failure','brew',barrelContents}
   
 end

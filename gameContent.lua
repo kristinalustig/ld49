@@ -498,9 +498,13 @@ c.new(143,'Gilbert',32,14,10,g.newImage('assets/c.png'),'What\'s shakin\'? Aside
   }
   
   
+  introPage2 = "Welcome to Gonzo Alchemy! A game in which you use strange objects in your post-apocalyptic world to create even stranger potions, which you can then sell to the strangest of customers."
   
+  introPage3 = "BUT!!!!!!! Beware. If you mix a potion improperly, you'll need to add it to the Unstable Mixture barrel (where else would you put it? you're not a litterer, and garbage collection was suspended in the apocalypse). If you fill the barrel up, it's game over!"
   
-    
+  introPage4 = "You might want to get a pen and paper handy to write down clues that customers give you (they're usually standing there but they're not in a rush, so take your time). As you meet more and more people, you'll get more ingredients and be able to sell more potions. Thank you for giving this game a try!"
+  
+  gameOverText = "Welp, you filled up your barrel. Your SHOP HAS EXPLODED!!!!! OH NO ..... !!!! If you want to try again, go ahead and restart the game (this will un-explode your shop). The potions are the same, so you can use your knowledge to build on your previous run. Don't forget to let me know what you thought! Thanks for playing!!!!"  
   
 end
 
