@@ -31,7 +31,7 @@ function M.initialize()
       3, --id
       'c', --key
       'Questionably potable water', --name
-      'What water *isn\t* questionably potable until you drink it?', --desc
+      'What water *isn\'t* questionably potable until you drink it?', --desc
       g.newImage('assets/water.png'), --img
       1 --cost
     ),
@@ -227,35 +227,6 @@ function M.initialize()
     
   }
   
-  
-  
-  customers = {
-    
-    c.new(
-      1, --id
-      'Gertrude', --name,
-      0, --want (potion id)
-      0, --give (hint id)
-      0, --give (ingredient id)
-      g.newImage('assets/c.png'), --img
-      'Good day!', --greeting text
-      'I would truly love some BLAH.', --want text
-      'Good show old chap.', --success text
-      'Maybe next time.' --failure text
-    )
-  
-  }
-
-  
-  hints = {
-    
-    'test hint',
-    
-    ''
-    
-  }
-  
-  
   potions = {
     
     --(id, desc, name, ingredients, sell)
@@ -368,6 +339,166 @@ p.new(106,'Makes you totally great at planning dates. Especially picnics. Ants n
 p.new(107,'Surf GeoCities like it\'s 1999. No, really. This potion allows you to time travel, but only in Internet Explorer 5. Godspeed.','Net surfer',{6,8})
     
   }
+  
+  customers = {
+    
+    c.new(1,'Matilda',34,74,19,g.newImage('assets/c.png'),'Hi there, party person!','I\'m looking for a substance called *'.. potions[34].name ..'*. Can I have some?','Huzzah!','Darn. See ya.'),
+c.new(2,'Hannah',85,3,20,g.newImage('assets/c.png'),'How\'re you this not-so-fine day?','I\'m in serious need of a particular item called  *'.. potions[85].name ..'*. How about it?','You won\'t regret this!','Maybe next time.'),
+c.new(3,'Lewis',14,77,17,g.newImage('assets/c.png'),'What\'s shakin\'? Aside from the earth\'s tectonic plates on an alarmingly regular basis, that is.','Do you happen to have any vials in stock of *'.. potions[14].name ..'*. What say you?','Oh, joy.','What a jerk. Adios.'),
+c.new(4,'Maude',12,11,19,g.newImage('assets/c.png'),'Good day sir and/or ma\'am!','Help! I need some *'.. potions[12].name ..'*. Pretty please?','You\'re not so bad, are you?','WHY NOT :-('),
+c.new(5,'Isabella',49,48,3,g.newImage('assets/c.png'),'Hello hello hello hello! That\'s four hellos! All for you!','I wouldn\'t say no right about now to an order of  *'.. potions[49].name ..'*. I think that\'s a reasonable request, don\'t you?','Owe you one.','Next time I will wear a disguise.'),
+c.new(6,'Joseph',19,79,21,g.newImage('assets/c.png'),'Oh gosh, I\'m so happy you\'re open. I\'m desperate!','My pocket full of units would like to say hello to their good friend *'.. potions[19].name ..'*. So? Yes?','YOU WILL BE SPARED.','I\'m reporting this to the Better Business Bureau.'),
+c.new(7,'Sandra',33,7,24,g.newImage('assets/c.png'),'Good insert your time of day here.','I AM NOT ROBOT I REQUIRE  *'.. potions[33].name ..'*. Can you help?','Great! Wonderful! Stupenderous!','Well now I\'m sad.'),
+c.new(8,'Brooke',95,84,7,g.newImage('assets/c.png'),'Oh yeeaaahhh, the store is open! Time to party!','Jiminy Christmas, it sure is raining fire out there! Anyway. Do you have any  *'.. potions[95].name ..'*. HELP PLEASE HUMAN OF INDETERMINATE GENDER.','Well, I won\'t believe a thing they say anymore, you\'re nice.','They were right about you.'),
+c.new(9,'John',5,34,23,g.newImage('assets/c.png'),'Please, you have to help me.','You wouldn\'t happen to have some *'.. potions[5].name ..'*. Help yes can you?','OH thank God.','Fine, I didn\'t want it anyway.'),
+c.new(10,'Kristina',92,103,17,g.newImage('assets/c.png'),'Take a break to chat with me for a sec.','I\'d like some of a particular potion called... *'.. potions[92].name ..'*. It\'s such a ...day outside. Great opportunity to say yes?','Jeez, so expensive! Oh well, I need it.','Darn. See ya.'),
+c.new(11,'Lena',13,18,16,g.newImage('assets/c.png'),'Look at you, hard at work. It warms my cold heart.','The world has gone to shit, I tell you! The only thing that can help me is  *'.. potions[13].name ..'*. Is it in stock?','Wasn\'t it cheaper last week? Alas.','Maybe next time.'),
+c.new(12,'Daniel',58,81,24,g.newImage('assets/c.png'),'I never expected to find myself here.','Please for the love of God I hope you have  *'.. potions[58].name ..'*. Gosh is it available?','Didn\'t the other shop have it for less?','What a jerk. Adios.'),
+c.new(13,'William',7,24,15,g.newImage('assets/c.png'),'Ugh I hope you\'re efficient.','Could you possibly spare for not too much money some *'.. potions[7].name ..'*. What say you?','Cannot wait to consume or otherwise use this!','WHY NOT :-('),
+c.new(14,'Alyssa',83,13,13,g.newImage('assets/c.png'),'BRO. WHAT UP.','I\'m looking for a substance called *'.. potions[83].name ..'*. Pretty please?','Is it safe to eat? I hope so! I\'m hungry.','Next time I will wear a disguise.'),
+c.new(15,'Lois',33,86,10,g.newImage('assets/c.png'),'Hi there, party person!','I\'m in serious need of a particular item called  *'.. potions[33].name ..'*. I think that\'s a reasonable request, don\'t you?','Golly, what a treat.','I\'m reporting this to the Better Business Bureau.'),
+c.new(16,'Sophia',48,33,11,g.newImage('assets/c.png'),'How\'re you this not-so-fine day?','Do you happen to have any vials in stock of *'.. potions[48].name ..'*. So? Yes?','Thank you so much!','Well now I\'m sad.'),
+c.new(17,'Pamela',38,75,11,g.newImage('assets/c.png'),'What\'s shakin\'? Aside from the earth\'s tectonic plates on an alarmingly regular basis, that is.','Help! I need some *'.. potions[38].name ..'*. Can you help?','Yay, thanks, see ya later!','They were right about you.'),
+c.new(18,'Charlotte',55,4,14,g.newImage('assets/c.png'),'Good day sir and/or ma\'am!','I wouldn\'t say no right about now to an order of  *'.. potions[55].name ..'*. HELP PLEASE HUMAN OF INDETERMINATE GENDER.','Huzzah!','Fine, I didn\'t want it anyway.'),
+c.new(19,'Laura',42,26,19,g.newImage('assets/c.png'),'Hello hello hello hello! That\'s four hellos! All for you!','My pocket full of units would like to say hello to their good friend *'.. potions[42].name ..'*. Help yes can you?','You won\'t regret this!','Darn. See ya.'),
+c.new(20,'Helen',20,82,24,g.newImage('assets/c.png'),'Oh gosh, I\'m so happy you\'re open. I\'m desperate!','I AM NOT ROBOT I REQUIRE  *'.. potions[20].name ..'*. It\'s such a ...day outside. Great opportunity to say yes?','Oh, joy.','Maybe next time.'),
+c.new(21,'Arthur',3,64,10,g.newImage('assets/c.png'),'Good insert your time of day here.','Jiminy Christmas, it sure is raining fire out there! Anyway. Do you have any  *'.. potions[3].name ..'*. Is it in stock?','You\'re not so bad, are you?','What a jerk. Adios.'),
+c.new(22,'Quinn',75,93,4,g.newImage('assets/c.png'),'Oh yeeaaahhh, the store is open! Time to party!','You wouldn\'t happen to have some *'.. potions[75].name ..'*. Gosh is it available?','Owe you one.','WHY NOT :-('),
+c.new(23,'Vivian',74,102,9,g.newImage('assets/c.png'),'Please, you have to help me.','I\'d like some of a particular potion called... *'.. potions[74].name ..'*. What say you?','YOU WILL BE SPARED.','Next time I will wear a disguise.'),
+c.new(24,'Stanley',66,50,17,g.newImage('assets/c.png'),'Take a break to chat with me for a sec.','The world has gone to shit, I tell you! The only thing that can help me is  *'.. potions[66].name ..'*. Pretty please?','Great! Wonderful! Stupenderous!','I\'m reporting this to the Better Business Bureau.'),
+c.new(25,'Angelina',97,1,16,g.newImage('assets/c.png'),'Look at you, hard at work. It warms my cold heart.','Please for the love of God I hope you have  *'.. potions[97].name ..'*. I think that\'s a reasonable request, don\'t you?','Well, I won\'t believe a thing they say anymore, you\'re nice.','Well now I\'m sad.'),
+c.new(26,'Nellie',8,6,11,g.newImage('assets/c.png'),'I never expected to find myself here.','Could you possibly spare for not too much money some *'.. potions[8].name ..'*. So? Yes?','OH thank God.','They were right about you.'),
+c.new(27,'Mary',2,4,5,g.newImage('assets/c.png'),'Ugh I hope you\'re efficient.','I\'m looking for a substance called *'.. potions[2].name ..'*. Can you help?','Jeez, so expensive! Oh well, I need it.','Fine, I didn\'t want it anyway.'),
+c.new(28,'Gertrude',5,20,7,g.newImage('assets/c.png'),'BRO. WHAT UP.','I\'m in serious need of a particular item called  *'.. potions[5].name ..'*. HELP PLEASE HUMAN OF INDETERMINATE GENDER.','Wasn\'t it cheaper last week? Alas.','Darn. See ya.'),
+c.new(29,'Marguerite',16,59,13,g.newImage('assets/c.png'),'Hi there, party person!','Do you happen to have any vials in stock of *'.. potions[16].name ..'*. Help yes can you?','Didn\'t the other shop have it for less?','Maybe next time.'),
+c.new(30,'Hugh',19,98,5,g.newImage('assets/c.png'),'How\'re you this not-so-fine day?','Help! I need some *'.. potions[19].name ..'*. It\'s such a ...day outside. Great opportunity to say yes?','Cannot wait to consume or otherwise use this!','What a jerk. Adios.'),
+c.new(31,'Matthew',63,41,6,g.newImage('assets/c.png'),'What\'s shakin\'? Aside from the earth\'s tectonic plates on an alarmingly regular basis, that is.','I wouldn\'t say no right about now to an order of  *'.. potions[63].name ..'*. Is it in stock?','Is it safe to eat? I hope so! I\'m hungry.','WHY NOT :-('),
+c.new(32,'Har[er',64,14,13,g.newImage('assets/c.png'),'Good day sir and/or ma\'am!','My pocket full of units would like to say hello to their good friend *'.. potions[64].name ..'*. Gosh is it available?','Golly, what a treat.','Next time I will wear a disguise.'),
+c.new(33,'Horace',22,101,9,g.newImage('assets/c.png'),'Hello hello hello hello! That\'s four hellos! All for you!','I AM NOT ROBOT I REQUIRE  *'.. potions[22].name ..'*. What say you?','Thank you so much!','I\'m reporting this to the Better Business Bureau.'),
+c.new(34,'Vernon',31,21,10,g.newImage('assets/c.png'),'Oh gosh, I\'m so happy you\'re open. I\'m desperate!','Jiminy Christmas, it sure is raining fire out there! Anyway. Do you have any  *'.. potions[31].name ..'*. Pretty please?','Yay, thanks, see ya later!','Well now I\'m sad.'),
+c.new(35,'Lisa',22,35,5,g.newImage('assets/c.png'),'Good insert your time of day here.','You wouldn\'t happen to have some *'.. potions[22].name ..'*. I think that\'s a reasonable request, don\'t you?','Huzzah!','They were right about you.'),
+c.new(36,'Ryan',81,66,12,g.newImage('assets/c.png'),'Oh yeeaaahhh, the store is open! Time to party!','I\'d like some of a particular potion called... *'.. potions[81].name ..'*. So? Yes?','You won\'t regret this!','Fine, I didn\'t want it anyway.'),
+c.new(37,'Kevin',37,9,23,g.newImage('assets/c.png'),'Please, you have to help me.','The world has gone to shit, I tell you! The only thing that can help me is  *'.. potions[37].name ..'*. Can you help?','Oh, joy.','Darn. See ya.'),
+c.new(38,'Jocelyn',100,25,12,g.newImage('assets/c.png'),'Take a break to chat with me for a sec.','Please for the love of God I hope you have  *'.. potions[100].name ..'*. HELP PLEASE HUMAN OF INDETERMINATE GENDER.','You\'re not so bad, are you?','Maybe next time.'),
+c.new(39,'Thomas',17,10,6,g.newImage('assets/c.png'),'Look at you, hard at work. It warms my cold heart.','Could you possibly spare for not too much money some *'.. potions[17].name ..'*. Help yes can you?','Owe you one.','What a jerk. Adios.'),
+c.new(40,'Ashley',84,65,5,g.newImage('assets/c.png'),'I never expected to find myself here.','I\'m looking for a substance called *'.. potions[84].name ..'*. It\'s such a ...day outside. Great opportunity to say yes?','YOU WILL BE SPARED.','WHY NOT :-('),
+c.new(41,'Amelia',59,28,20,g.newImage('assets/c.png'),'Ugh I hope you\'re efficient.','I\'m in serious need of a particular item called  *'.. potions[59].name ..'*. Is it in stock?','Great! Wonderful! Stupenderous!','Next time I will wear a disguise.'),
+c.new(42,'Florence',103,87,9,g.newImage('assets/c.png'),'BRO. WHAT UP.','Do you happen to have any vials in stock of *'.. potions[103].name ..'*. Gosh is it available?','Well, I won\'t believe a thing they say anymore, you\'re nice.','I\'m reporting this to the Better Business Bureau.'),
+c.new(43,'Patricia',10,35,6,g.newImage('assets/c.png'),'Hi there, party person!','Help! I need some *'.. potions[10].name ..'*. What say you?','OH thank God.','Well now I\'m sad.'),
+c.new(44,'Santiago',73,32,14,g.newImage('assets/c.png'),'How\'re you this not-so-fine day?','I wouldn\'t say no right about now to an order of  *'.. potions[73].name ..'*. Pretty please?','Jeez, so expensive! Oh well, I need it.','They were right about you.'),
+c.new(45,'Harriet',25,46,19,g.newImage('assets/c.png'),'What\'s shakin\'? Aside from the earth\'s tectonic plates on an alarmingly regular basis, that is.','My pocket full of units would like to say hello to their good friend *'.. potions[25].name ..'*. I think that\'s a reasonable request, don\'t you?','Wasn\'t it cheaper last week? Alas.','Fine, I didn\'t want it anyway.'),
+c.new(46,'Chloe',86,24,18,g.newImage('assets/c.png'),'Good day sir and/or ma\'am!','I AM NOT ROBOT I REQUIRE  *'.. potions[86].name ..'*. So? Yes?','Didn\'t the other shop have it for less?','Darn. See ya.'),
+c.new(47,'Alex',53,23,22,g.newImage('assets/c.png'),'Hello hello hello hello! That\'s four hellos! All for you!','Jiminy Christmas, it sure is raining fire out there! Anyway. Do you have any  *'.. potions[53].name ..'*. Can you help?','Cannot wait to consume or otherwise use this!','Maybe next time.'),
+c.new(48,'Savannah',68,89,16,g.newImage('assets/c.png'),'Oh gosh, I\'m so happy you\'re open. I\'m desperate!','You wouldn\'t happen to have some *'.. potions[68].name ..'*. HELP PLEASE HUMAN OF INDETERMINATE GENDER.','Is it safe to eat? I hope so! I\'m hungry.','What a jerk. Adios.'),
+c.new(49,'Dorothy',12,34,15,g.newImage('assets/c.png'),'Good insert your time of day here.','I\'d like some of a particular potion called... *'.. potions[12].name ..'*. Help yes can you?','Golly, what a treat.','WHY NOT :-('),
+c.new(50,'Raymond',9,90,15,g.newImage('assets/c.png'),'Oh yeeaaahhh, the store is open! Time to party!','The world has gone to shit, I tell you! The only thing that can help me is  *'.. potions[9].name ..'*. It\'s such a ...day outside. Great opportunity to say yes?','Thank you so much!','Next time I will wear a disguise.'),
+c.new(51,'Clara',105,2,3,g.newImage('assets/c.png'),'Please, you have to help me.','Please for the love of God I hope you have  *'.. potions[105].name ..'*. Is it in stock?','Yay, thanks, see ya later!','I\'m reporting this to the Better Business Bureau.'),
+c.new(52,'Lydia',17,19,14,g.newImage('assets/c.png'),'Take a break to chat with me for a sec.','Could you possibly spare for not too much money some *'.. potions[17].name ..'*. Gosh is it available?','Huzzah!','Well now I\'m sad.'),
+c.new(53,'Scott',39,94,22,g.newImage('assets/c.png'),'Look at you, hard at work. It warms my cold heart.','I\'m looking for a substance called *'.. potions[39].name ..'*. What say you?','You won\'t regret this!','They were right about you.'),
+c.new(54,'Chloe',62,104,21,g.newImage('assets/c.png'),'I never expected to find myself here.','I\'m in serious need of a particular item called  *'.. potions[62].name ..'*. Pretty please?','Oh, joy.','Fine, I didn\'t want it anyway.'),
+c.new(55,'Emil',29,27,23,g.newImage('assets/c.png'),'Ugh I hope you\'re efficient.','Do you happen to have any vials in stock of *'.. potions[29].name ..'*. I think that\'s a reasonable request, don\'t you?','You\'re not so bad, are you?','Darn. See ya.'),
+c.new(56,'George',15,49,3,g.newImage('assets/c.png'),'BRO. WHAT UP.','Help! I need some *'.. potions[15].name ..'*. So? Yes?','Owe you one.','Maybe next time.'),
+c.new(57,'Susan',24,58,14,g.newImage('assets/c.png'),'Hi there, party person!','I wouldn\'t say no right about now to an order of  *'.. potions[24].name ..'*. Can you help?','YOU WILL BE SPARED.','What a jerk. Adios.'),
+c.new(58,'Ava',51,1,24,g.newImage('assets/c.png'),'How\'re you this not-so-fine day?','My pocket full of units would like to say hello to their good friend *'.. potions[51].name ..'*. HELP PLEASE HUMAN OF INDETERMINATE GENDER.','Great! Wonderful! Stupenderous!','WHY NOT :-('),
+c.new(59,'Michelle',30,36,18,g.newImage('assets/c.png'),'What\'s shakin\'? Aside from the earth\'s tectonic plates on an alarmingly regular basis, that is.','I AM NOT ROBOT I REQUIRE  *'.. potions[30].name ..'*. Help yes can you?','Well, I won\'t believe a thing they say anymore, you\'re nice.','Next time I will wear a disguise.'),
+c.new(60,'James',3,9,21,g.newImage('assets/c.png'),'Good day sir and/or ma\'am!','Jiminy Christmas, it sure is raining fire out there! Anyway. Do you have any  *'.. potions[3].name ..'*. It\'s such a ...day outside. Great opportunity to say yes?','OH thank God.','I\'m reporting this to the Better Business Bureau.'),
+c.new(61,'Lillian',106,57,8,g.newImage('assets/c.png'),'Hello hello hello hello! That\'s four hellos! All for you!','You wouldn\'t happen to have some *'.. potions[106].name ..'*. Is it in stock?','Jeez, so expensive! Oh well, I need it.','Well now I\'m sad.'),
+c.new(62,'Genevieve',35,62,21,g.newImage('assets/c.png'),'Oh gosh, I\'m so happy you\'re open. I\'m desperate!','I\'d like some of a particular potion called... *'.. potions[35].name ..'*. Gosh is it available?','Wasn\'t it cheaper last week? Alas.','They were right about you.'),
+c.new(63,'Ethel',104,76,3,g.newImage('assets/c.png'),'Good insert your time of day here.','The world has gone to shit, I tell you! The only thing that can help me is  *'.. potions[104].name ..'*. What say you?','Didn\'t the other shop have it for less?','Fine, I didn\'t want it anyway.'),
+c.new(64,'Clarence',1,69,18,g.newImage('assets/c.png'),'Oh yeeaaahhh, the store is open! Time to party!','Please for the love of God I hope you have  *'.. potions[1].name ..'*. Pretty please?','Cannot wait to consume or otherwise use this!','Darn. See ya.'),
+c.new(65,'Robert',1,32,23,g.newImage('assets/c.png'),'Please, you have to help me.','Could you possibly spare for not too much money some *'.. potions[1].name ..'*. I think that\'s a reasonable request, don\'t you?','Is it safe to eat? I hope so! I\'m hungry.','Maybe next time.'),
+c.new(66,'Deborah',34,17,3,g.newImage('assets/c.png'),'Take a break to chat with me for a sec.','I\'m looking for a substance called *'.. potions[34].name ..'*. So? Yes?','Golly, what a treat.','What a jerk. Adios.'),
+c.new(67,'Victor',23,95,16,g.newImage('assets/c.png'),'Look at you, hard at work. It warms my cold heart.','I\'m in serious need of a particular item called  *'.. potions[23].name ..'*. Can you help?','Thank you so much!','WHY NOT :-('),
+c.new(68,'Brian',41,22,8,g.newImage('assets/c.png'),'I never expected to find myself here.','Do you happen to have any vials in stock of *'.. potions[41].name ..'*. HELP PLEASE HUMAN OF INDETERMINATE GENDER.','Yay, thanks, see ya later!','Next time I will wear a disguise.'),
+c.new(69,'Evelyn',60,39,18,g.newImage('assets/c.png'),'Ugh I hope you\'re efficient.','Help! I need some *'.. potions[60].name ..'*. Help yes can you?','Huzzah!','I\'m reporting this to the Better Business Bureau.'),
+c.new(70,'Violet',69,29,4,g.newImage('assets/c.png'),'BRO. WHAT UP.','I wouldn\'t say no right about now to an order of  *'.. potions[69].name ..'*. It\'s such a ...day outside. Great opportunity to say yes?','You won\'t regret this!','Well now I\'m sad.'),
+c.new(71,'Olga',36,20,11,g.newImage('assets/c.png'),'Hi there, party person!','My pocket full of units would like to say hello to their good friend *'.. potions[36].name ..'*. Is it in stock?','Oh, joy.','They were right about you.'),
+c.new(72,'Richard',9,30,16,g.newImage('assets/c.png'),'How\'re you this not-so-fine day?','I AM NOT ROBOT I REQUIRE  *'.. potions[9].name ..'*. Gosh is it available?','You\'re not so bad, are you?','Fine, I didn\'t want it anyway.'),
+c.new(73,'Emma',44,45,13,g.newImage('assets/c.png'),'What\'s shakin\'? Aside from the earth\'s tectonic plates on an alarmingly regular basis, that is.','Jiminy Christmas, it sure is raining fire out there! Anyway. Do you have any  *'.. potions[44].name ..'*. What say you?','Owe you one.','Darn. See ya.'),
+c.new(74,'Nancy',18,52,4,g.newImage('assets/c.png'),'Good day sir and/or ma\'am!','You wouldn\'t happen to have some *'.. potions[18].name ..'*. Pretty please?','YOU WILL BE SPARED.','Maybe next time.'),
+c.new(75,'Mark',27,38,4,g.newImage('assets/c.png'),'Hello hello hello hello! That\'s four hellos! All for you!','I\'d like some of a particular potion called... *'.. potions[27].name ..'*. I think that\'s a reasonable request, don\'t you?','Great! Wonderful! Stupenderous!','What a jerk. Adios.'),
+c.new(76,'Ethan',78,100,9,g.newImage('assets/c.png'),'Oh gosh, I\'m so happy you\'re open. I\'m desperate!','The world has gone to shit, I tell you! The only thing that can help me is  *'.. potions[78].name ..'*. So? Yes?','Well, I won\'t believe a thing they say anymore, you\'re nice.','WHY NOT :-('),
+c.new(77,'Madison',56,67,22,g.newImage('assets/c.png'),'Good insert your time of day here.','Please for the love of God I hope you have  *'.. potions[56].name ..'*. Can you help?','OH thank God.','Next time I will wear a disguise.'),
+c.new(78,'Mason',50,21,23,g.newImage('assets/c.png'),'Oh yeeaaahhh, the store is open! Time to party!','Could you possibly spare for not too much money some *'.. potions[50].name ..'*. HELP PLEASE HUMAN OF INDETERMINATE GENDER.','Jeez, so expensive! Oh well, I need it.','I\'m reporting this to the Better Business Bureau.'),
+c.new(79,'Jordan',70,106,6,g.newImage('assets/c.png'),'Please, you have to help me.','I\'m looking for a substance called *'.. potions[70].name ..'*. Help yes can you?','Wasn\'t it cheaper last week? Alas.','Well now I\'m sad.'),
+c.new(80,'Kimberly',26,71,20,g.newImage('assets/c.png'),'Take a break to chat with me for a sec.','I\'m in serious need of a particular item called  *'.. potions[26].name ..'*. It\'s such a ...day outside. Great opportunity to say yes?','Didn\'t the other shop have it for less?','They were right about you.'),
+c.new(81,'Xavier',71,7,7,g.newImage('assets/c.png'),'Look at you, hard at work. It warms my cold heart.','Do you happen to have any vials in stock of *'.. potions[71].name ..'*. Is it in stock?','Cannot wait to consume or otherwise use this!','Fine, I didn\'t want it anyway.'),
+c.new(82,'Benjamin',57,11,8,g.newImage('assets/c.png'),'I never expected to find myself here.','Help! I need some *'.. potions[57].name ..'*. Gosh is it available?','Is it safe to eat? I hope so! I\'m hungry.','Darn. See ya.'),
+c.new(83,'Linda',28,53,23,g.newImage('assets/c.png'),'Ugh I hope you\'re efficient.','I wouldn\'t say no right about now to an order of  *'.. potions[28].name ..'*. What say you?','Golly, what a treat.','Maybe next time.'),
+c.new(84,'Joan',14,40,3,g.newImage('assets/c.png'),'BRO. WHAT UP.','My pocket full of units would like to say hello to their good friend *'.. potions[14].name ..'*. Pretty please?','Thank you so much!','What a jerk. Adios.'),
+c.new(85,'Charles',11,6,7,g.newImage('assets/c.png'),'Hi there, party person!','I AM NOT ROBOT I REQUIRE  *'.. potions[11].name ..'*. I think that\'s a reasonable request, don\'t you?','Yay, thanks, see ya later!','WHY NOT :-('),
+c.new(86,'Liam',45,16,24,g.newImage('assets/c.png'),'How\'re you this not-so-fine day?','Jiminy Christmas, it sure is raining fire out there! Anyway. Do you have any  *'.. potions[45].name ..'*. So? Yes?','Huzzah!','Next time I will wear a disguise.'),
+c.new(87,'Jasmine',88,8,3,g.newImage('assets/c.png'),'What\'s shakin\'? Aside from the earth\'s tectonic plates on an alarmingly regular basis, that is.','You wouldn\'t happen to have some *'.. potions[88].name ..'*. Can you help?','You won\'t regret this!','I\'m reporting this to the Better Business Bureau.'),
+c.new(88,'Percy',28,85,13,g.newImage('assets/c.png'),'Good day sir and/or ma\'am!','I\'d like some of a particular potion called... *'.. potions[28].name ..'*. HELP PLEASE HUMAN OF INDETERMINATE GENDER.','Oh, joy.','Well now I\'m sad.'),
+c.new(89,'Edna',107,92,8,g.newImage('assets/c.png'),'Hello hello hello hello! That\'s four hellos! All for you!','The world has gone to shit, I tell you! The only thing that can help me is  *'.. potions[107].name ..'*. Help yes can you?','You\'re not so bad, are you?','They were right about you.'),
+c.new(90,'Daisy',77,99,13,g.newImage('assets/c.png'),'Oh gosh, I\'m so happy you\'re open. I\'m desperate!','Please for the love of God I hope you have  *'.. potions[77].name ..'*. It\'s such a ...day outside. Great opportunity to say yes?','Owe you one.','Fine, I didn\'t want it anyway.'),
+c.new(91,'Jason',96,80,10,g.newImage('assets/c.png'),'Good insert your time of day here.','Could you possibly spare for not too much money some *'.. potions[96].name ..'*. Is it in stock?','YOU WILL BE SPARED.','Darn. See ya.'),
+c.new(92,'Zach',87,23,12,g.newImage('assets/c.png'),'Oh yeeaaahhh, the store is open! Time to party!','I\'m looking for a substance called *'.. potions[87].name ..'*. Gosh is it available?','Great! Wonderful! Stupenderous!','Maybe next time.'),
+c.new(93,'Isaac',94,25,15,g.newImage('assets/c.png'),'Please, you have to help me.','I\'m in serious need of a particular item called  *'.. potions[94].name ..'*. What say you?','Well, I won\'t believe a thing they say anymore, you\'re nice.','What a jerk. Adios.'),
+c.new(94,'Caleb',91,55,20,g.newImage('assets/c.png'),'Take a break to chat with me for a sec.','Do you happen to have any vials in stock of *'.. potions[91].name ..'*. Pretty please?','OH thank God.','WHY NOT :-('),
+c.new(95,'Lucille',24,12,7,g.newImage('assets/c.png'),'Look at you, hard at work. It warms my cold heart.','Help! I need some *'.. potions[24].name ..'*. I think that\'s a reasonable request, don\'t you?','Jeez, so expensive! Oh well, I need it.','Next time I will wear a disguise.'),
+c.new(96,'Morgan',90,78,5,g.newImage('assets/c.png'),'I never expected to find myself here.','I wouldn\'t say no right about now to an order of  *'.. potions[90].name ..'*. So? Yes?','Wasn\'t it cheaper last week? Alas.','I\'m reporting this to the Better Business Bureau.'),
+c.new(97,'Steven',32,5,6,g.newImage('assets/c.png'),'Ugh I hope you\'re efficient.','My pocket full of units would like to say hello to their good friend *'.. potions[32].name ..'*. Can you help?','Didn\'t the other shop have it for less?','Well now I\'m sad.'),
+c.new(98,'Wyatt',99,47,7,g.newImage('assets/c.png'),'BRO. WHAT UP.','I AM NOT ROBOT I REQUIRE  *'.. potions[99].name ..'*. HELP PLEASE HUMAN OF INDETERMINATE GENDER.','Cannot wait to consume or otherwise use this!','They were right about you.'),
+c.new(99,'Miguel',76,88,14,g.newImage('assets/c.png'),'Hi there, party person!','Jiminy Christmas, it sure is raining fire out there! Anyway. Do you have any  *'.. potions[76].name ..'*. Help yes can you?','Is it safe to eat? I hope so! I\'m hungry.','Fine, I didn\'t want it anyway.'),
+c.new(100,'Nicholas',80,73,12,g.newImage('assets/c.png'),'How\'re you this not-so-fine day?','You wouldn\'t happen to have some *'.. potions[80].name ..'*. It\'s such a ...day outside. Great opportunity to say yes?','Golly, what a treat.','Darn. See ya.'),
+c.new(101,'Autumn',101,29,17,g.newImage('assets/c.png'),'What\'s shakin\'? Aside from the earth\'s tectonic plates on an alarmingly regular basis, that is.','I\'d like some of a particular potion called... *'.. potions[101].name ..'*. Is it in stock?','Thank you so much!','Maybe next time.'),
+c.new(102,'Jacob',47,105,19,g.newImage('assets/c.png'),'Good day sir and/or ma\'am!','The world has gone to shit, I tell you! The only thing that can help me is  *'.. potions[47].name ..'*. Gosh is it available?','Yay, thanks, see ya later!','What a jerk. Adios.'),
+c.new(103,'Olivia',46,91,16,g.newImage('assets/c.png'),'Hello hello hello hello! That\'s four hellos! All for you!','Please for the love of God I hope you have  *'.. potions[46].name ..'*. What say you?','Huzzah!','WHY NOT :-('),
+c.new(104,'Aubrey',65,42,19,g.newImage('assets/c.png'),'Oh gosh, I\'m so happy you\'re open. I\'m desperate!','Could you possibly spare for not too much money some *'.. potions[65].name ..'*. Pretty please?','You won\'t regret this!','Next time I will wear a disguise.'),
+c.new(105,'Margaret',16,70,15,g.newImage('assets/c.png'),'Good insert your time of day here.','I\'m looking for a substance called *'.. potions[16].name ..'*. I think that\'s a reasonable request, don\'t you?','Oh, joy.','I\'m reporting this to the Better Business Bureau.'),
+c.new(106,'Jack',93,44,18,g.newImage('assets/c.png'),'Oh yeeaaahhh, the store is open! Time to party!','I\'m in serious need of a particular item called  *'.. potions[93].name ..'*. So? Yes?','You\'re not so bad, are you?','Well now I\'m sad.'),
+c.new(107,'Glenn',27,36,6,g.newImage('assets/c.png'),'Please, you have to help me.','Do you happen to have any vials in stock of *'.. potions[27].name ..'*. Can you help?','Owe you one.','They were right about you.'),
+c.new(108,'Julia',89,33,6,g.newImage('assets/c.png'),'Take a break to chat with me for a sec.','Help! I need some *'.. potions[89].name ..'*. HELP PLEASE HUMAN OF INDETERMINATE GENDER.','YOU WILL BE SPARED.','Fine, I didn\'t want it anyway.'),
+c.new(109,'Hazel',72,43,18,g.newImage('assets/c.png'),'Look at you, hard at work. It warms my cold heart.','I wouldn\'t say no right about now to an order of  *'.. potions[72].name ..'*. Help yes can you?','Great! Wonderful! Stupenderous!','Darn. See ya.'),
+c.new(110,'Ruth',102,72,15,g.newImage('assets/c.png'),'I never expected to find myself here.','My pocket full of units would like to say hello to their good friend *'.. potions[102].name ..'*. It\'s such a ...day outside. Great opportunity to say yes?','Well, I won\'t believe a thing they say anymore, you\'re nice.','Maybe next time.'),
+c.new(111,'Cynthia',31,8,22,g.newImage('assets/c.png'),'Ugh I hope you\'re efficient.','I AM NOT ROBOT I REQUIRE  *'.. potions[31].name ..'*. Is it in stock?','OH thank God.','What a jerk. Adios.'),
+c.new(112,'Abigail',52,54,14,g.newImage('assets/c.png'),'BRO. WHAT UP.','Jiminy Christmas, it sure is raining fire out there! Anyway. Do you have any  *'.. potions[52].name ..'*. Gosh is it available?','Jeez, so expensive! Oh well, I need it.','WHY NOT :-('),
+c.new(113,'Howard',10,13,10,g.newImage('assets/c.png'),'Hi there, party person!','You wouldn\'t happen to have some *'.. potions[10].name ..'*. What say you?','Wasn\'t it cheaper last week? Alas.','Next time I will wear a disguise.'),
+c.new(114,'Edith',7,19,21,g.newImage('assets/c.png'),'How\'re you this not-so-fine day?','I\'d like some of a particular potion called... *'.. potions[7].name ..'*. Pretty please?','Didn\'t the other shop have it for less?','I\'m reporting this to the Better Business Bureau.'),
+c.new(115,'Camila',67,26,8,g.newImage('assets/c.png'),'What\'s shakin\'? Aside from the earth\'s tectonic plates on an alarmingly regular basis, that is.','The world has gone to shit, I tell you! The only thing that can help me is  *'.. potions[67].name ..'*. I think that\'s a reasonable request, don\'t you?','Cannot wait to consume or otherwise use this!','Well now I\'m sad.'),
+c.new(116,'Michael',21,17,20,g.newImage('assets/c.png'),'Good day sir and/or ma\'am!','Please for the love of God I hope you have  *'.. potions[21].name ..'*. So? Yes?','Is it safe to eat? I hope so! I\'m hungry.','They were right about you.'),
+c.new(117,'Sally',20,22,4,g.newImage('assets/c.png'),'Hello hello hello hello! That\'s four hellos! All for you!','Could you possibly spare for not too much money some *'.. potions[20].name ..'*. Can you help?','Golly, what a treat.','Fine, I didn\'t want it anyway.'),
+c.new(118,'Archie',21,27,3,g.newImage('assets/c.png'),'Oh gosh, I\'m so happy you\'re open. I\'m desperate!','I\'m looking for a substance called *'.. potions[21].name ..'*. HELP PLEASE HUMAN OF INDETERMINATE GENDER.','Thank you so much!','Darn. See ya.'),
+c.new(119,'Walter',2,10,22,g.newImage('assets/c.png'),'Good insert your time of day here.','I\'m in serious need of a particular item called  *'.. potions[2].name ..'*. Help yes can you?','Yay, thanks, see ya later!','Maybe next time.'),
+c.new(120,'Tammy',36,96,17,g.newImage('assets/c.png'),'Oh yeeaaahhh, the store is open! Time to party!','Do you happen to have any vials in stock of *'.. potions[36].name ..'*. It\'s such a ...day outside. Great opportunity to say yes?','Huzzah!','What a jerk. Adios.'),
+c.new(121,'Donna',29,2,15,g.newImage('assets/c.png'),'Please, you have to help me.','Help! I need some *'.. potions[29].name ..'*. Is it in stock?','You won\'t regret this!','WHY NOT :-('),
+c.new(122,'Diego',98,12,4,g.newImage('assets/c.png'),'Take a break to chat with me for a sec.','I wouldn\'t say no right about now to an order of  *'.. potions[98].name ..'*. Gosh is it available?','Oh, joy.','Next time I will wear a disguise.'),
+c.new(123,'Christopher',79,18,9,g.newImage('assets/c.png'),'Look at you, hard at work. It warms my cold heart.','My pocket full of units would like to say hello to their good friend *'.. potions[79].name ..'*. What say you?','You\'re not so bad, are you?','I\'m reporting this to the Better Business Bureau.'),
+c.new(124,'Pearl',6,16,3,g.newImage('assets/c.png'),'I never expected to find myself here.','I AM NOT ROBOT I REQUIRE  *'.. potions[6].name ..'*. Pretty please?','Owe you one.','Well now I\'m sad.'),
+c.new(125,'Noah',43,37,12,g.newImage('assets/c.png'),'Ugh I hope you\'re efficient.','Jiminy Christmas, it sure is raining fire out there! Anyway. Do you have any  *'.. potions[43].name ..'*. I think that\'s a reasonable request, don\'t you?','YOU WILL BE SPARED.','They were right about you.'),
+c.new(126,'Shirley',8,107,4,g.newImage('assets/c.png'),'BRO. WHAT UP.','You wouldn\'t happen to have some *'.. potions[8].name ..'*. So? Yes?','Great! Wonderful! Stupenderous!','Fine, I didn\'t want it anyway.'),
+c.new(127,'Pauline',15,30,12,g.newImage('assets/c.png'),'Hi there, party person!','I\'d like some of a particular potion called... *'.. potions[15].name ..'*. Can you help?','Well, I won\'t believe a thing they say anymore, you\'re nice.','Darn. See ya.'),
+c.new(128,'Bernice',26,97,20,g.newImage('assets/c.png'),'How\'re you this not-so-fine day?','The world has gone to shit, I tell you! The only thing that can help me is  *'.. potions[26].name ..'*. HELP PLEASE HUMAN OF INDETERMINATE GENDER.','OH thank God.','Maybe next time.'),
+c.new(129,'Rose',4,15,5,g.newImage('assets/c.png'),'What\'s shakin\'? Aside from the earth\'s tectonic plates on an alarmingly regular basis, that is.','Please for the love of God I hope you have  *'.. potions[4].name ..'*. Help yes can you?','Jeez, so expensive! Oh well, I need it.','What a jerk. Adios.'),
+c.new(130,'Emily',54,63,21,g.newImage('assets/c.png'),'Good day sir and/or ma\'am!','Could you possibly spare for not too much money some *'.. potions[54].name ..'*. It\'s such a ...day outside. Great opportunity to say yes?','Wasn\'t it cheaper last week? Alas.','WHY NOT :-('),
+c.new(131,'Donald',13,31,12,g.newImage('assets/c.png'),'Hello hello hello hello! That\'s four hellos! All for you!','I\'m looking for a substance called *'.. potions[13].name ..'*. Is it in stock?','Didn\'t the other shop have it for less?','Next time I will wear a disguise.'),
+c.new(132,'Timothy',35,3,24,g.newImage('assets/c.png'),'Oh gosh, I\'m so happy you\'re open. I\'m desperate!','I\'m in serious need of a particular item called  *'.. potions[35].name ..'*. Gosh is it available?','Cannot wait to consume or otherwise use this!','I\'m reporting this to the Better Business Bureau.'),
+c.new(133,'Carl',11,31,20,g.newImage('assets/c.png'),'Good insert your time of day here.','Do you happen to have any vials in stock of *'.. potions[11].name ..'*. What say you?','Is it safe to eat? I hope so! I\'m hungry.','Well now I\'m sad.'),
+c.new(134,'Ella',61,68,22,g.newImage('assets/c.png'),'Oh yeeaaahhh, the store is open! Time to party!','Help! I need some *'.. potions[61].name ..'*. Pretty please?','Golly, what a treat.','They were right about you.'),
+c.new(135,'Lori',40,56,11,g.newImage('assets/c.png'),'Please, you have to help me.','I wouldn\'t say no right about now to an order of  *'.. potions[40].name ..'*. I think that\'s a reasonable request, don\'t you?','Thank you so much!','Fine, I didn\'t want it anyway.'),
+c.new(136,'Barbara',6,51,9,g.newImage('assets/c.png'),'Take a break to chat with me for a sec.','My pocket full of units would like to say hello to their good friend *'.. potions[6].name ..'*. So? Yes?','Yay, thanks, see ya later!','Darn. See ya.'),
+c.new(137,'Betty',4,61,5,g.newImage('assets/c.png'),'Look at you, hard at work. It warms my cold heart.','I AM NOT ROBOT I REQUIRE  *'.. potions[4].name ..'*. Can you help?','Huzzah!','Maybe next time.'),
+c.new(138,'Ora',30,28,17,g.newImage('assets/c.png'),'I never expected to find myself here.','Jiminy Christmas, it sure is raining fire out there! Anyway. Do you have any  *'.. potions[30].name ..'*. HELP PLEASE HUMAN OF INDETERMINATE GENDER.','You won\'t regret this!','What a jerk. Adios.'),
+c.new(139,'Karen',25,83,11,g.newImage('assets/c.png'),'Ugh I hope you\'re efficient.','You wouldn\'t happen to have some *'.. potions[25].name ..'*. Help yes can you?','Oh, joy.','WHY NOT :-('),
+c.new(140,'David',23,15,8,g.newImage('assets/c.png'),'BRO. WHAT UP.','I\'d like some of a particular potion called... *'.. potions[23].name ..'*. It\'s such a ...day outside. Great opportunity to say yes?','You\'re not so bad, are you?','Next time I will wear a disguise.'),
+c.new(141,'Leon',18,5,15,g.newImage('assets/c.png'),'Hi there, party person!','The world has gone to shit, I tell you! The only thing that can help me is  *'.. potions[18].name ..'*. Is it in stock?','Owe you one.','I\'m reporting this to the Better Business Bureau.'),
+c.new(142,'Grace',82,60,13,g.newImage('assets/c.png'),'How\'re you this not-so-fine day?','Please for the love of God I hope you have  *'.. potions[82].name ..'*. Gosh is it available?','YOU WILL BE SPARED.','Well now I\'m sad.'),
+c.new(143,'Gilbert',32,14,10,g.newImage('assets/c.png'),'What\'s shakin\'? Aside from the earth\'s tectonic plates on an alarmingly regular basis, that is.','Could you possibly spare for not too much money some *'.. potions[32].name ..'*. What say you?','Great! Wonderful! Stupenderous!','They were right about you.'),
+  
+  }
+
+  
+  hints = {
+    
+    'test hint',
+    
+    ''
+    
+  }
+  
+  
+  
   
     
   

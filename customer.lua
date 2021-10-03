@@ -9,8 +9,8 @@ function M.new(id, name, wants, givesHints, givesIngredients, img, greeting, wan
       visited = false,
       name = name,
       want = want,
-      givesHint = givesHint,
-      givesIngredient = givesIngredient,
+      givesHint = givesHints,
+      givesIngredient = givesIngredients,
       img = img,
       content = {
       greeting,

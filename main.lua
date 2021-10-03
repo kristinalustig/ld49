@@ -9,7 +9,17 @@ function love.load()
 
   GC.initialize()
   GI.initialize()
-  print(ingredients[1].name)
+  
+  love.math.setRandomSeed(os.time() + love.mouse.getX())
+  
+  ingredients[1].discovered = true
+  ingredients[2].discovered = true
+  ingredients[1].quantity = 300
+  ingredients[2].quantity = 300
+  
+  bgmusic = love.audio.newSource("assets/theme.wav", "static")
+  bgmusic:setLooping(true)
+  bgmusic:play()
   
   keyFont = g.newImageFont("assets/keycaps.png", 'abcdefghijklmnopqrstuvwxyz./1234567890')
   regFont = g.newImageFont("assets/regular.png", 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890!?.,()\'":;@+-*/%#^= ')
@@ -34,25 +44,30 @@ function love.load()
   
   barrelContents = 0
   brewContents = {}
-  forSale = {potions[1]}
-  onTable = {potions[1], potions[1]}
+  forSale = {}
+  onTable = {}
   minPage = 0
   maxPage = 34
   counter = 1
+  lastTalked = 0
+  errorMessage = nil
 
 end
 
 function love.update(dt)
-  if state.currentCustomer == nil then
-    for i=1, table.getn(customers)+2 do
-      if (counter % i == 0 and customers[i].visited == false) then
+  if state.currentCustomer == nil and math.abs(lastTalked - counter) >= 200 then
+    for i=1, table.getn(customers) do
+      if (counter % (i*math.random(150)) == 0 and customers[i].visited == false) then
         state.customerPresent = true
         state.currentCustomer = customers[i]
-        counter = counter + 1
+        print(state.currentCustomer.name)
+        customers[i].visited = true
+        lastTalked = counter
         return
       end
     end
   end
+  counter = counter + 1
   
 end
 
@@ -86,8 +101,8 @@ function love.draw()
     x = 50 + (60 * i)
     y = 330
     g.draw(potionSheet, onTable[i].img, x, y)
-    if state.isBrewing or state.isInspectingPotions then
-      g.printf("1", x, y+35, 30)
+    if state.isBrewing or state.isInspectingPotions or state.isSelling then
+      g.printf(i, x, y+35, 30)
     end
     
   end
@@ -96,7 +111,13 @@ function love.draw()
   if state.isInspectingPotions then
     g.draw(brewBox, 420, 370)
     if state.inspecting then
-      g.printf(state.inspecting.letterMap, 430, 390, 30)
+      g.setFont(regFont)
+      g.draw(potionSheet, state.inspecting.img, 430, 390)
+      g.printf(state.inspecting.name, 488, 390, 300)
+      g.setFont(regSmFont)
+      g.printf(state.inspecting.desc, 430, 480, 360)
+      g.printf("QNTY: "..state.inspecting.quantity, 530, 550, 100)
+      g.setFont(keyFont)
     end
   end
   
@@ -109,7 +130,6 @@ function love.draw()
       g.printf(state.inspecting.name, 488, 390, 300)
       g.setFont(regSmFont)
       g.printf(state.inspecting.desc, 430, 480, 360)
-      g.printf("COST: "..state.inspecting.cost, 430, 550, 100)
       g.printf("QNTY: "..state.inspecting.quantity, 530, 550, 100)
       g.setFont(keyFont)
     end
@@ -118,9 +138,6 @@ function love.draw()
   --show the potions that are for sale
   for i=1, table.getn(forSale) do
     g.draw(potionSheet, forSale[i].img, 670, 30)
-    if state.isSelling then
-      g.printf('1', 690, 50, 30)
-    end
     
   end
   
@@ -135,22 +152,73 @@ function love.draw()
   --if you're brewing, open the brew box
   if state.isBrewing then
     g.draw(brewBox, 420, 370)
+    g.setFont(regSmFont)
+    g.printf("Combine two ingredients:", 430, 390, 180)
     if table.getn(brewContents) > 0 then
       for i=1, table.getn(brewContents) do
-        g.printf(brewContents[i].letterMap, 430, 390, 30)
+        g.printf(brewContents[i].name, 430, 420 + 60*(i-1), 180)
       end
     end
+    if table.getn(brewContents) >= 1 then
+      g.printf("combines with", 430, 450, 180)
+      if table.getn(brewContents) == 2 then
+        g.printf(" to brew!", 450, 550, 100)
+        g.setFont(keyFont)
+        g.printf("9",430, 540, 30)
+      end
+    end
+    
   elseif state.isBookOpen then
     g.draw(openBook)
     populateBook(state.currPage)
   elseif state.congratsPopover then
-    g.draw(congrats)
-  elseif state.isTalking then
+    if state.congratsPopover[1] == 'failure' then
+      g.draw(uhoh)
+      if state.congratsPopover[2] == 'convo' then
+        g.setFont(regSmFont)
+        if state.congratsPopover[3] then
+          g.printf("You didn't give this customer what they wanted. Out of pure pity, they've given you an ingredient so that you might brew new potions (and maybe eventually someday the one they want.).", 140, 260, 500, 'center')
+          g.setFont(regFont)
+          g.draw(state.congratsPopover[3].img, 140, 360)
+          g.printf(state.congratsPopover[3].name, 200, 360, 500)
+          g.setFont(regSmFont)
+          g.printf(state.congratsPopover[3].desc, 200, 400, 500)
+        else
+          g.printf("You didn't give this customer what they wanted. Out of pure pity, they've given you an ingredient, but unfortunately it's one you already have. BORING.", 140, 260, 500, 'center')
+        end
+      elseif state.congratsPopover[2] == 'brew' then
+        g.setFont(regSmFont)
+        g.printf("Your attempt at brewing a new potion didn't work. Now you must dump your useless sludge into the unstable mixture barrel, thus making it inherently more unstable. Your barrel is now "..barrelContents.."/10ths full.", 140, 260, 500)
+      end
+      
+    else
+      g.draw(congrats)
+      if state.congratsPopover[2] == 'convo' then
+        g.setFont(regSmFont)
+        g.printf("You traded the customer what they wanted. As a token of their gratitude, they left you with a parting gift: a description of a potion they heard about long ago. Hopefully it helps. Might want to write it down.", 140, 260, 500, 'center')
+        g.printf(state.congratsPopover[3], 140, 380, 500, 'center')
+        
+      elseif state.congratsPopover[2] == 'brew' then
+        g.setFont(regFont)
+        g.printf("You successfully discovered a new brew!", 100, 260, 600, 'center')
+        g.draw(potionSheet, state.congratsPopover[3].img, 140, 360)
+        g.printf(state.congratsPopover[3].name, 200, 360, 500)
+        g.setFont(regSmFont)
+        g.printf(state.congratsPopover[3].desc, 200, 400, 500)
+      end
+      
+    end
+    
+  elseif (state.isTalking) then
     g.draw(dialogBox, 10, 340)
     g.draw(state.currentCustomer.img, 26, 352)
     g.setFont(regFont)
+    if (state.convoState == 1) then
+      g.printf("right arrow to continue", 400, 550, 500)
+    end
+    
     g.printf(state.currentCustomer.name, 28, 540, 200)
-    g.printf(state.currentCustomer.content[state.convoState], 200, 380, 400)
+    g.printf(state.currentCustomer.content[state.convoState], 200, 380, 500)
     if state.convoState == 2 then
       g.setFont(keyFont)
       g.printf('y', 200, 550, 30)
@@ -179,12 +247,20 @@ function love.draw()
     end
     
   end
+  
+  if errorMessage then
+    g.setFont(regFont)
+    g.printf(errorMessage, 20, 348, 600)
+  end
+  
 
 end
 
 
 --pretty much everything happens here!
 function love.keyreleased(k)
+  
+  errorMessage = nil
   
   if k == 'right' and state.isBookOpen == true then
     state.currPage = math.min(state.currPage + 2, maxPage)
@@ -226,10 +302,13 @@ end
 
 function setInspectI(k)
   state.inspecting = findIngredient(k)
+  if state.inspecting and state.inspecting.discovered == false then state.inspecting = nil end
 end
 
 function setInspectP(k)
-  state.inspecting = findPotion(k)
+  if onTable[tonumber(k)] then
+    state.inspecting = onTable[tonumber(k)]
+  end
 end
 
 
@@ -237,13 +316,14 @@ end
 function tryAddIngredient(k)
   
   if table.getn(brewContents) == 2 then
-    if k == '8' then
+    if k == '9' then
       tryCompleteBrew()
     end
     return
   end  
   
   ingred = findIngredient(k)
+  if ingred ~= nil and ingred.discovered == false then ingred = nil return end
   
   if ingred == nil then
     ingred = findPotion(k)
@@ -265,10 +345,40 @@ function conversation(k)
     state.convoState = state.convoState + 1
   elseif state.convoState == 2 then
     if k == 'y' then
-      
+      for i=1, table.getn(forSale) do
+        if forSale[i].id == state.currentCustomer.want then
+          state.convoState = 3
+          forSale[i].quantity = forSale[i].quantity - 1
+          if forSale[i].quantity == 0 then table.remove(forSale, i) end
+          goto continue        
+        end
+      end
+      errorMessage = "*You don't have this potion up for sale.*"
+      ::continue::
     elseif k == 'n' then
-      
+      state.convoState = 4
     end
+  elseif state.convoState == 3 then
+    exitStates()
+    local hint = state.currentCustomer.givesHint
+    state.congratsPopover = {'success', 'convo', potions[hint].desc}
+    state.currentCustomer = nil
+    state.customerPresent = false
+    lastTalked = counter
+  elseif state.convoState == 4 then
+    exitStates()
+    local ingredient = ingredients[state.currentCustomer.givesIngredient]
+    ingredient.quantity = ingredient.quantity + 1
+    if ingredient.discovered == true then
+      ingredient = nil 
+    else
+      ingredient.discovered = true
+    end
+    state.congratsPopover = {'failure', 'convo', ingredient}
+    
+    state.currentCustomer = nil
+    state.customerPresent = false
+    lastTalked = counter
   end
   
   
@@ -283,7 +393,7 @@ function tryChangeState(k)
     state.isBrewing = true
   elseif k == '2' then --put potion up for sale!
     state.isSelling = true
-  elseif k == '3' then --talk to customer!
+  elseif k == '3' and state.customerPresent then --talk to customer!
     state.isTalking = true
   elseif k == '4' then --inspect ingredients
     state.isInspectingIngredients = true
@@ -324,15 +434,19 @@ function tryCompleteBrew()
   for i = 1, table.getn(potions) do
     if ingredientsMatch(potions[i].ingreds, finalBrew) then
       if potions[i].discovered == false then
-        state.congratsPopover = potions[i]
+        state.congratsPopover = {'success', 'brew', potions[i]}
         potions[i].discovered = true
       end
       potions[i].quantity = potions[i].quantity + 1
+      if potions[i].quantity == 1 then 
+        table.insert(onTable, potions[i])
+      end
       return
     end
   end
   
   barrelContents = barrelContents + 1
+  state.congratsPopover = {'failure','brew',barrelContents}
   
 end
 
@@ -362,11 +476,11 @@ function findIngredient(k)
   
 end
 
---return relevant ingredient based on matched keystroke
+--return relevant potion based on matched keystroke
 function findPotion(k)
   
   for i=1, table.getn(onTable) do
-    if onTable[i].letterMap == k then
+    if k == i then
       return onTable[i]
     end
   end
@@ -377,12 +491,11 @@ end
 
 function trySellPotion(k)
   
+  local p = findPotion(tonumber(k))
+  if not p then return end
   table.insert(forSale, p)
-  
-end
-
---validation happens in tryCompleteBrew()
-function addTablePotion(p)
+  removeTablePotion(p, tonumber(k))
+  exitStates()
   
 end
 
@@ -392,9 +505,9 @@ function removeForSale(p)
 end
 
 --validation happens in tryAddIngredient() and trySellPotion()
-function removeTablePotion(p)
+function removeTablePotion(p, k)
   if p.quantity == 1 then
-    table.remove(onTable, p)
+    table.remove(onTable, k)
   else
     p.quantity = p.quantity - 1
   end
@@ -459,9 +572,8 @@ function populateBook(page)
           y = 124 * (modif) - (popp ) - math.floor(popp*.25) - 30
             g.draw(potionSheet, p.img, x, y)
             g.printf(p.name..': '..p.desc, x + 56, y, 290)
-            g.printf("*"..ingredients[p.ingreds[1]].name .. " + " .. ingredients[p.ingreds[2]].name.."*", x-6, y+74, 360)
-            g.printf("Sell for: "..p.sell.."   Quantity: "..p.quantity, x+150, y+100, 300)
-            g.printf("-------------------------------------------------", x+20, y+110, 300)
+            g.printf("*"..ingredients[p.ingreds[1]].name .. " + " .. ingredients[p.ingreds[2]].name.."*", x-6, y+100, 360)
+            g.printf("-------------------------------------------------", x-6, y+110, 300)
         else
             g.printf('#'..p.id..' is undiscovered', 60 + popp, 124 * (modif) - (popp ) - math.floor(popp*.25) - 30, 300)
         end
